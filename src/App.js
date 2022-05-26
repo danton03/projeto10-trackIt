@@ -5,6 +5,7 @@ import GlobalStyle from './assets/styles/GlobalStyle';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
 import CreateAccount from './components/CreateAccount';
+/* import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"; */
 
 function App() {
   return (

@@ -59,6 +59,8 @@ const GlobalStyle = createGlobalStyle`
     --cor-cinza-texto: #666666;
     --cor-cinza-claro: #DBDBDB;
     --cor-borda-input: #D5D5D5;
+    --cor-input-disabled: #F2F2F2;
+    --cor-texto-disabled: #AFAFAF;
     --cor-cinza-botão: #EBEBEB;
     --cor-dia-selecionado: #CFCFCF;
   }

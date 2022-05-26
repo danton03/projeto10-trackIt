@@ -35,13 +35,21 @@ const ContainerForm = styled.div`
     color: var(--cinza-claro);
   }
   
+  input:disabled{
+    background-color: var(--cor-input-disabled);
+    color: var(--cor-texto-disabled);
+  }
+
   button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
     border-radius: 5px;
     background-color: var(--cor-azul-claro);
     
     font-weight: 400;
-    font-size: 20.976px;
+    font-size: 20px;
     line-height: 26px;
     text-align: center;
     color: var(--cor-branca);
@@ -50,21 +58,25 @@ const ContainerForm = styled.div`
   button:hover{
     cursor: pointer;
   }
+
+  button:disabled{
+    filter: opacity(75%);
+    cursor: not-allowed;
+  }
   
-  a{
+  .mudarForm{
+    background-color: transparent;
+    height: fit-content;
+    width: fit-content;
+    margin-top: 25px;
+    
     font-family: 'Lexend Deca', sans-serif;
     font-weight: 400;
-    margin-top: 25px;
     font-size: 14px;
     line-height: 17px;
     text-align: center;
     text-decoration-line: underline;
-    
-    color: var(--cor-azul-claro);
-  }
-  
 
-  a:visited{
     color: var(--cor-azul-claro);
   }
   
