@@ -15,19 +15,24 @@ export default function LoginPage() {
   const { setUserData } = useContext(UserContext);
   const navigate = useNavigate();
 
+  //Estado que controla os inputs e botões do formulário
   const [stateForm, setStateForm] = useState({
     email: '',
     senha: '',
     disabled: false
   })
 
+  //Função acionada ao clicar no botão de cadastrar
   function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault(); //previne o reload da página
+
+    //Dados que serão enviados para a API
     const dadosUsuario = {
       email: stateForm.email,
       password: stateForm.senha
     }
 
+    //Bloqueia a edição do form enquanto a requisição é feita
     setStateForm((valorAnterior) => {
       return {
         ...valorAnterior, 
@@ -35,9 +40,10 @@ export default function LoginPage() {
       }
     });
 
+    //Requisição para a API de login
     const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", dadosUsuario);
-    promise.then(successRequest);
-    promise.catch(failInRequest);
+    promise.then(successRequest); //sucesso
+    promise.catch(failInRequest); //falha
     
     function successRequest(response) {
       const userToken = response.data.token;
@@ -47,7 +53,7 @@ export default function LoginPage() {
     }
 
     function failInRequest() {
-      alert("Erro ao tentar realizar o cadastro.\nVerifique se preencheu os campos corretamente.");
+      alert("Erro ao tentar logar.\nVerifique se preencheu os campos corretamente.");
       setStateForm((valorAnterior) => {
         return {
           ...valorAnterior, 

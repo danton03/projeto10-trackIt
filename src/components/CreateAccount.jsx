@@ -9,6 +9,7 @@ import axios from 'axios';
 export default function CreateAccount() {
   const navigate = useNavigate();
 
+  //Estado que controla os inputs e botões do formulário
   const [stateForm, setStateForm] = useState({
     email: '',
     senha: '',
@@ -17,25 +18,32 @@ export default function CreateAccount() {
     disabled: false
   })
 
+  //Função acionada ao clicar no botão de cadastrar
   function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault(); //previne o reload da página
+
+    //Dados que serão enviados para a API
     const dadosCadastro = {
       email: stateForm.email,
       name: stateForm.nome,
 	    image: stateForm.foto,
       password: stateForm.senha
     }
-    console.log(dadosCadastro);
 
-    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", dadosCadastro)
-    .then((response) => {
-      console.log("Deu bão");
-      console.log(response);
-      navigate("/");
-    })
-    .catch((err) =>{
-      console.log("Deu xabu");
-      console.log(err);
+    //Bloqueia a edição do form enquanto a requisição é feita
+    setStateForm((valorAnterior) => {
+      return {
+        ...valorAnterior, 
+        disabled: true,
+      }
+    });
+
+    //Requisição para a API de cadastro de usuários
+    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", dadosCadastro);
+    promise.then(() => { navigate("/") }); //sucesso
+    promise.catch(failInRequest); //falha
+
+    function failInRequest() {
       alert("Erro ao tentar realizar o cadastro.\nVerifique se preencheu os campos corretamente.");
       setStateForm((valorAnterior) => {
         return {
@@ -43,14 +51,8 @@ export default function CreateAccount() {
           disabled: false,
         }
       });
-    })
+    }
 
-    setStateForm((valorAnterior) => {
-      return {
-        ...valorAnterior, 
-        disabled: true,
-      }
-    });
   }
 
   return(
