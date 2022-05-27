@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ThreeDots } from  'react-loader-spinner'
+import { useContext } from "react";
+import axios from 'axios';
+
 import logo from '../assets/images/logo.svg';
 
 import { ContainerForm } from './layouts/ContainerForm';
-import axios from 'axios';
+
+import UserContext from ".././contexts/UserContext";
+
 
 export default function LoginPage() {
+  const { setUserData } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [stateForm, setStateForm] = useState({
@@ -22,23 +28,25 @@ export default function LoginPage() {
       password: stateForm.senha
     }
 
-    console.log(dadosUsuario);
+    setStateForm((valorAnterior) => {
+      return {
+        ...valorAnterior, 
+        disabled: true,
+      }
+    });
 
-    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", dadosUsuario)
-    .then((response) => {
-      console.log("Deu bão");
-      console.log(response);
-      /* Remover essa liberação dos inputs depois */
-      setStateForm((valorAnterior) => {
-        return {
-          ...valorAnterior, 
-          disabled: false,
-        }
-      });
-    })
-    .catch((err) =>{
-      console.log("Deu xabu");
-      console.log(err);
+    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", dadosUsuario);
+    promise.then(successRequest);
+    promise.catch(failInRequest);
+    
+    function successRequest(response) {
+      const userToken = response.data.token;
+      const imgUrl = response.data.image; 
+      setUserData({img: imgUrl, token: userToken});
+      navigate("/habitos");
+    }
+
+    function failInRequest() {
       alert("Erro ao tentar realizar o cadastro.\nVerifique se preencheu os campos corretamente.");
       setStateForm((valorAnterior) => {
         return {
@@ -46,14 +54,8 @@ export default function LoginPage() {
           disabled: false,
         }
       });
-    })
-
-    setStateForm((valorAnterior) => {
-      return {
-        ...valorAnterior, 
-        disabled: true,
-      }
-    });
+    }
+    
   }
 
   return(

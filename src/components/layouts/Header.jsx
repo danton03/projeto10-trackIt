@@ -1,11 +1,18 @@
 import styled from "styled-components";
-import profileIMG from "../../assets/images/shinji.jpg"
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
+
 
 export default function Header() {
+  //Pegando o state dos dados do usuário do contexto
+  const { userData } = useContext(UserContext);
+  //Desestruturando o state para pegar só link da imagem de perfil
+  const { img } = userData; 
+
   return(
     <Titulo>
         <h1>TrackIt</h1>
-        <img src={profileIMG} alt="Perfil" />
+        <img src={img} alt="Perfil" />
     </Titulo>
   );
 }
@@ -23,7 +30,7 @@ const Titulo = styled.div`
   box-sizing: border-box;
   
   background-color: var(--cor-azul);
-  
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 
   h1{
     font-family: 'Playball';
