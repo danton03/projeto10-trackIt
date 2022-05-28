@@ -11,18 +11,19 @@ import { useState } from 'react';
 
 function App() {
   const [userData, setUserData] = useState(null);
+
   return (
       /* A primeira chave é da sintaxe do javascript e a segunda é pelo fato do 
       parâmetro passado no value ser um objeto, então estou desestruturando ele. */
       <UserContext.Provider value={{userData, setUserData}}>
-        <GlobalStyle />
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<LoginPage />} />
-            <Route path='/cadastro' element={<CreateAccount />} />
-            <Route path='/habitos' element={<HabitsPage />} />
-          </Routes>
-        </BrowserRouter>
+          <GlobalStyle />
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<LoginPage />} />
+              <Route path='/cadastro' element={<CreateAccount />} />
+              <Route path='/habitos' element={<HabitsPage />} />
+            </Routes>
+          </BrowserRouter>
       </UserContext.Provider>
   );
 }
