@@ -5,7 +5,8 @@ const ContainerPage = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   padding: 0 17px;
   margin-top: 70px;
   box-sizing: border-box;

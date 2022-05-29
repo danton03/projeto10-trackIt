@@ -3,15 +3,17 @@ import { BotaoForm, CardCriarHabito } from "./layouts/CardCreateHabitStyles";
 import { ThreeDots } from  'react-loader-spinner'
 import axios from "axios";
 import { useContext, useState } from "react";
+import DaysContext from "../contexts/DaysContext";
 import UserContext from "../contexts/UserContext";
+import RefreshHabitsContext from "../contexts/RefreshHabitsContext";
 
 export default function CardCreatHabit(props) {
+  const { dias, setDias, nomeHabito, setNomeHabito } = useContext(DaysContext);
   const { userData } = useContext(UserContext);
   const { token } = userData;
-  const {handleShowCard} = props;
+  const { novoHabito, setNovoHabito } = useContext(RefreshHabitsContext);
+  const {handleShowCard, showCard} = props;
   const semana = ["D", "S", "T", "Q", "Q", "S", "S"];
-  const [dias, setDias] = useState([]);
-  const [nomeHabito, setNomeHabito] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
 
   function handleSubmit(e) {
@@ -39,22 +41,25 @@ export default function CardCreatHabit(props) {
       promise.then(successRequest); //sucesso
       promise.catch(failInRequest); //falha
 
-      function successRequest(response) {
-        console.log(response.data);
+      function successRequest() {
         setIsDisabled(false);
+        setDias([]);
+        setNomeHabito('');        
         handleShowCard();
+        setNovoHabito(!novoHabito)
       }
 
       function failInRequest() {
         alert("Ops, tivemos um erro interno ao tentar criar seu hábito. Tente novamente");
         setIsDisabled(false);
       }
-      //colocar os dados na requisição e mudar o disabled do form no .then
     }
   }
 
+  
+
   return(
-    <CardCriarHabito>
+    <CardCriarHabito showCard={showCard}>
       <form onSubmit={handleSubmit}>
         <input 
         type="text" 
@@ -66,7 +71,15 @@ export default function CardCreatHabit(props) {
 
         <div className="dias">
           {semana.map((dia,index) =>{
-            return <BotaoDia key={index} id={index+1} setDias={setDias} dias={dias} disabled={isDisabled}> {dia} </BotaoDia>
+            return (
+              <BotaoDia 
+              key={index} 
+              id={index+1} 
+              disabled={isDisabled}
+              >
+                {dia} 
+              </BotaoDia>
+            )
             })
           }
         </div>

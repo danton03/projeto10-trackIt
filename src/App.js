@@ -9,6 +9,7 @@ import HabitsPage from './components/HabitsPage';
 import UserContext from "./contexts/UserContext";
 import { useState } from 'react';
 
+
 function App() {
   const [userData, setUserData] = useState(null);
 

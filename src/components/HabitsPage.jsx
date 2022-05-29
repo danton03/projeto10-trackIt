@@ -5,12 +5,15 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
 import { SectionShowHabits } from "./layouts/SectionShowHabits";
+import CardHabit from "./CardHabit";
+import RefreshHabitsContext from "../contexts/RefreshHabitsContext";
 
 export default function HabitsPage() {
   console.log("renderizou a pagina");
   const { userData } = useContext(UserContext);
   const { token } = userData;
   const [habitos, setHabitos] = useState(null);
+  const [novoHabito, setNovoHabito] = useState(false);
 
   const config = {
     headers: {
@@ -27,32 +30,41 @@ export default function HabitsPage() {
 
     function successRequest(response) {
       setHabitos(response.data);
-      console.log(habitos)
     }
 
     function failInRequest() {
       alert("Ops, tivemos um erro interno ao tentar listar seus hábitos.\n:(");
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [novoHabito]);
 
   function renderizaHabitos() {
-    if(habitos.length === 0){
+    if(!habitos.length){
       return <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
     }
 
-    /* else{
-      <ion-icon name="trash-outline"></ion-icon>
-    } */
+    else{
+      return(
+        habitos.map((habit, index) => (
+          <CardHabit key={index} habito={habit} />
+        ))
+      );
+    }
   }
 
   return (
     <ContainerPage>
       <Header />
-      <SectionCreateHabit />
-      <SectionShowHabits>
-        {habitos ? renderizaHabitos() : 'Carregando...'}
-      </SectionShowHabits>
+
+      <RefreshHabitsContext.Provider value={{novoHabito, setNovoHabito}}>
+
+        <SectionCreateHabit />
+        <SectionShowHabits>
+          {habitos ? renderizaHabitos() : 'Carregando...'}
+        </SectionShowHabits>
+
+      </RefreshHabitsContext.Provider>
+
     </ContainerPage>
   );
 }
