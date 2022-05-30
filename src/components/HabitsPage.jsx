@@ -1,5 +1,5 @@
 import { ContainerPage } from "./layouts/HabitsPageStyles";
-import Header from "./layouts/Header";
+import Header from "./Header";
 import SectionCreateHabit from "./SectionCreateHabit";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";

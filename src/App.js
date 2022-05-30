@@ -45,9 +45,6 @@ function App() {
 
   useEffect(() =>
   {
-    console.log("calculou no useEffect");
-    console.log("habitsChecked.lenth");
-    console.log(habitsChecked.lenth);
     if (habitsChecked.length > 0 && habitosHoje.length > 0) {
       const resultado = Math.round((habitsChecked.length/habitosHoje.length)*100)
       setPorcentagem(resultado);

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import Menu from "./Menu";
 import UserContext from "../contexts/UserContext";
 import { useEffect } from "react";
-import Header from "./layouts/Header";
+import Header from "./Header";
 import { SectionTodaysHabits } from "./SectionTodaysHabits";
 import CardTodaysHabit from "./CardTodaysHabit";
 import styled from "styled-components"

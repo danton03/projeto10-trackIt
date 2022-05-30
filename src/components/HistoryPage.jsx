@@ -1,6 +1,6 @@
 import { ContainerPage } from "./layouts/HabitsPageStyles";
 import Menu from "./Menu";
-import Header from "./layouts/Header";
+import Header from "./Header";
 import { Titulo } from "./layouts/Titulo";
 import { Texto } from "./layouts/Texto";
 
