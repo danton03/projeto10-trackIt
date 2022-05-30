@@ -49,7 +49,7 @@ export default function LoginPage() {
       const userToken = response.data.token;
       const imgUrl = response.data.image; 
       setUserData({img: imgUrl, token: userToken});
-      navigate("/habitos");
+      navigate("/hoje");
     }
 
     function failInRequest() {

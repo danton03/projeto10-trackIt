@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SectionShowHabits = styled.div`
+const SectionTodaysHabits = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,4 +14,4 @@ const SectionShowHabits = styled.div`
 `;
 
 
-export {SectionShowHabits};
+export {SectionTodaysHabits};

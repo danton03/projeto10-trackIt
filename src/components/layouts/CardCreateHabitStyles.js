@@ -7,7 +7,6 @@ const CardCriarHabito = styled.div`
   justify-content: center;
   width: 340px;
   height: 180px;
-  /* height: ${props => props.showCard ? "180px": "0"}; */
   margin-top: 20px;
   padding: 18px 18px 15px;
   box-sizing: border-box;

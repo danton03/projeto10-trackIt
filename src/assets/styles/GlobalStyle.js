@@ -70,6 +70,10 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
   }
 
+  #root{
+    width: 100%;
+  }
+
 
 `;
  

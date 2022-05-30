@@ -4,13 +4,13 @@ const ContainerPage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: auto;
-  min-height: 100vh;
+  min-height: 88vh;
   padding: 0 17px;
   margin-top: 70px;
   box-sizing: border-box;
-  background-color: var(--cor-fundo-tela);
+  background-color: #E5E5E5;
 `;
 
 const BotaoCriar = styled.button`

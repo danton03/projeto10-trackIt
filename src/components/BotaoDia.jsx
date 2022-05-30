@@ -1,5 +1,4 @@
 import styled from "styled-components";
-/* import { useState } from "react"; */
 import { useContext, useState } from "react";
 import DaysContext from "../contexts/DaysContext";
 
@@ -52,15 +51,12 @@ export default function BotaoDia(props) {
       else{
         setDias([...dias, id]);
       }
-      /* setCor(estiloClicado); */
     }
 
     else{
       const novoArray = dias.filter(dia => dia !== id); 
       setDias(novoArray);
-      /* setCor(estiloPadrao); */
     }
-    /* setClicado(!clicado); */
     setControle(true);
   }
 

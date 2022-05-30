@@ -9,7 +9,7 @@ import RefreshHabitsContext from "../contexts/RefreshHabitsContext";
 
 export default function CardCreatHabit(props) {
   const { dias, setDias, nomeHabito, setNomeHabito } = useContext(DaysContext);
-  const { userData } = useContext(UserContext);
+  const { userData, atualizaHabitosHoje } = useContext(UserContext);
   const { token } = userData;
   const { novoHabito, setNovoHabito } = useContext(RefreshHabitsContext);
   const {handleShowCard, showCard} = props;
@@ -37,6 +37,8 @@ export default function CardCreatHabit(props) {
       };
 
       //Requisição para a API de login
+      console.log("dataHabit que é enviado:");
+      console.log(dataHabit);
       const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", dataHabit, config);
       promise.then(successRequest); //sucesso
       promise.catch(failInRequest); //falha
@@ -47,6 +49,7 @@ export default function CardCreatHabit(props) {
         setNomeHabito('');        
         handleShowCard();
         setNovoHabito(!novoHabito)
+        atualizaHabitosHoje();
       }
 
       function failInRequest() {
@@ -55,8 +58,6 @@ export default function CardCreatHabit(props) {
       }
     }
   }
-
-  
 
   return(
     <CardCriarHabito showCard={showCard}>
@@ -74,7 +75,7 @@ export default function CardCreatHabit(props) {
             return (
               <BotaoDia 
               key={index} 
-              id={index+1} 
+              id={index} 
               disabled={isDisabled}
               >
                 {dia} 

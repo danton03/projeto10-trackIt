@@ -6,7 +6,7 @@ import UserContext from "../contexts/UserContext";
 
 export default function CardHabit(props) {
   const { novoHabito, setNovoHabito } = useContext(RefreshHabitsContext);
-  const { userData } = useContext(UserContext);
+  const { userData, atualizaHabitosHoje } = useContext(UserContext);
   const { token } = userData;
   const {habito} = props;
   const {id, name, days} = habito;
@@ -31,7 +31,8 @@ export default function CardHabit(props) {
       promise.catch(failInRequest); //falha
 
       function successRequest() {
-        setNovoHabito(!novoHabito)
+        setNovoHabito(!novoHabito);
+        atualizaHabitosHoje();
       }
 
       function failInRequest() {
@@ -47,7 +48,7 @@ export default function CardHabit(props) {
         /* Verifica se o dia do array recebido pela API é igual 
            ao index do dia do elemento sendo renderizado */
         //Em caso positivo gera um componente com estilo de selecionado
-        days.find((idDia) => (idDia === (index+1))) ? 
+        days.some((idDia) => (idDia === (index))) ? 
         (<Dia selecionado={true} key={index}> {dia} </Dia>) :
         (<Dia selecionado={false} key={index}> {dia} </Dia>)
       ))
@@ -70,16 +71,18 @@ const CardHabito = styled.div`
   width: 100%;
   height: auto;
   max-width: 340px;
-  max-height: 91px;
+  min-height: 91px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 13px 10px 15px 15px;
   border-radius: 5px;
+  box-sizing: border-box;
   background-color: var(--cor-branca);
 
   p{
     margin-top: 0;
+    font-family: 'Lexend Deca';
     font-weight: 400;
     font-size: 20px;
     line-height: 25px;
@@ -120,6 +123,7 @@ const Dia = styled.div`
   border: 1px solid;
   border-radius: 5px;
 
+  font-family: 'Lexend Deca';
   font-weight: 400;
   font-size: 20px;
   line-height: 25px;

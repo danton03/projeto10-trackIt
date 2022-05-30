@@ -7,10 +7,12 @@ import axios from "axios";
 import { SectionShowHabits } from "./layouts/SectionShowHabits";
 import CardHabit from "./CardHabit";
 import RefreshHabitsContext from "../contexts/RefreshHabitsContext";
+import Menu from "./Menu";
 
-export default function HabitsPage() {
+export default function HabitsPage(props) {
   console.log("renderizou a pagina");
-  const { userData } = useContext(UserContext);
+  /* const {atualizaHabitosHoje} = props; */
+  const { userData, updateToday, setUpdateToday } = useContext(UserContext);
   const { token } = userData;
   const [habitos, setHabitos] = useState(null);
   const [novoHabito, setNovoHabito] = useState(false);
@@ -30,6 +32,7 @@ export default function HabitsPage() {
 
     function successRequest(response) {
       setHabitos(response.data);
+      setUpdateToday(!updateToday);
     }
 
     function failInRequest() {
@@ -46,14 +49,14 @@ export default function HabitsPage() {
     else{
       return(
         habitos.map((habit, index) => (
-          <CardHabit key={index} habito={habit} />
+          <CardHabit key={index} habito={habit}/>
         ))
       );
     }
   }
 
   return (
-    <ContainerPage>
+    <ContainerPage className="containerPage">
       <Header />
 
       <RefreshHabitsContext.Provider value={{novoHabito, setNovoHabito}}>
@@ -62,7 +65,7 @@ export default function HabitsPage() {
         <SectionShowHabits>
           {habitos ? renderizaHabitos() : 'Carregando...'}
         </SectionShowHabits>
-
+        <Menu />
       </RefreshHabitsContext.Provider>
 
     </ContainerPage>
