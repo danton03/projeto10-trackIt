@@ -21,38 +21,59 @@ export default function CreateAccount() {
   //Função acionada ao clicar no botão de cadastrar
   function handleSubmit(event) {
     event.preventDefault(); //previne o reload da página
-
-    //Dados que serão enviados para a API
-    const dadosCadastro = {
-      email: stateForm.email,
-      name: stateForm.nome,
-	    image: stateForm.foto,
-      password: stateForm.senha
-    }
-
-    //Bloqueia a edição do form enquanto a requisição é feita
-    setStateForm((valorAnterior) => {
-      return {
-        ...valorAnterior, 
-        disabled: true,
+    const urlValida = validaImagem();
+    console.log("urlValida");
+    console.log(urlValida);
+    if(urlValida){
+      //Dados que serão enviados para a API
+      const dadosCadastro = {
+        email: stateForm.email,
+        name: stateForm.nome,
+        image: stateForm.foto,
+        password: stateForm.senha
       }
-    });
 
-    //Requisição para a API de cadastro de usuários
-    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", dadosCadastro);
-    promise.then(() => { navigate("/") }); //sucesso
-    promise.catch(failInRequest); //falha
-
-    function failInRequest() {
-      alert("Erro ao tentar realizar o cadastro.\nVerifique se preencheu os campos corretamente.");
+      //Bloqueia a edição do form enquanto a requisição é feita
       setStateForm((valorAnterior) => {
         return {
           ...valorAnterior, 
-          disabled: false,
+          disabled: true,
         }
       });
-    }
 
+      //Requisição para a API de cadastro de usuários
+      const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", dadosCadastro);
+      promise.then(() => { navigate("/") }); //sucesso
+      promise.catch(failInRequest); //falha
+
+      function failInRequest(resposta) {
+        if(resposta.response.status === 409){
+          alert(`Erro ao tentar realizar o cadastro.\n${resposta.response.data.message}`);
+        }
+        else{
+          alert("Erro ao tentar realizar o cadastro.\nVerifique se o seu e-mail é válido ou se sua senha tem pelo menos 6 caracteres.");
+        }
+        setStateForm((valorAnterior) => {
+          return {
+            ...valorAnterior, 
+            disabled: false,
+          }
+        });
+      }
+    }
+    else{
+      alert("Por favor, insira uma url válida para a imagem.\nExtensões aceitas: .jpeg, .jpg e .png");
+    }
+  }
+
+  function validaImagem(url) {
+    const re1 = /https?:([/|.|\w|\s|-])*\.(?:jpg|jpeg|png)/g;
+    const re2 = /http?:([/|.|\w|\s|-])*\.(?:jpg|jpeg|png)/g;
+    let resultado = false;
+    if(re1 || re2){
+      resultado = true;
+    }
+    return resultado;
   }
 
   return(
