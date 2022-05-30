@@ -42,11 +42,18 @@ function App() {
     }
   }
 
+
   useEffect(() =>
   {
-    if (habitsChecked.length && habitosHoje.length) {
+    console.log("calculou no useEffect");
+    console.log("habitsChecked.lenth");
+    console.log(habitsChecked.lenth);
+    if (habitsChecked.length > 0 && habitosHoje.length > 0) {
       const resultado = Math.round((habitsChecked.length/habitosHoje.length)*100)
       setPorcentagem(resultado);
+    }
+    else{
+      setPorcentagem(0);
     }
   },
   // eslint-disable-next-line react-hooks/exhaustive-deps

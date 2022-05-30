@@ -6,7 +6,7 @@ import UserContext from "../contexts/UserContext";
 
 export default function CardHabit(props) {
   const { novoHabito, setNovoHabito } = useContext(RefreshHabitsContext);
-  const { userData, atualizaHabitosHoje } = useContext(UserContext);
+  const { userData, atualizaHabitosHoje, habitsChecked, setHabitsChecked } = useContext(UserContext);
   const { token } = userData;
   const {habito} = props;
   const {id, name, days} = habito;
@@ -31,6 +31,8 @@ export default function CardHabit(props) {
       promise.catch(failInRequest); //falha
 
       function successRequest() {
+        const novoArray = habitsChecked.filter(dia => dia !== id); 
+        setHabitsChecked(novoArray);
         setNovoHabito(!novoHabito);
         atualizaHabitosHoje();
       }

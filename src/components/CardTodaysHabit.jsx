@@ -2,14 +2,12 @@ import axios from "axios";
 import { useState } from "react";
 import { useContext } from "react";
 import styled from "styled-components"
-import HabitsContext from "../contexts/HabitsContext";
 import UserContext from "../contexts/UserContext";
 
 export default function CardTodaysHabit(props) {
   const {habito, requestHabits} = props;
   const {id, name, done, currentSequence, highestSequence} = habito;
-  const { userData } = useContext(UserContext);
-  const { habitsChecked, setHabitsChecked } = useContext(HabitsContext);
+  const { userData, habitsChecked, setHabitsChecked } = useContext(UserContext);
   const { token } = userData;
   const [disabled, setDisabled] = useState(false);
   const isMarked = habitsChecked.some((item) => (item === id));
@@ -82,7 +80,7 @@ export default function CardTodaysHabit(props) {
 
         <p>
           {`Seu recorde: `}
-          <Sequencia color={(currentSequence === highestSequence) ? "#8FC549" : "#666666"}>
+          <Sequencia color={(currentSequence === highestSequence && currentSequence > 0) ? "#8FC549" : "#666666"}>
             {highestSequence}
           </Sequencia>
         </p>

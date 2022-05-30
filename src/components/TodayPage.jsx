@@ -8,7 +8,6 @@ import { SectionTodaysHabits } from "./SectionTodaysHabits";
 import CardTodaysHabit from "./CardTodaysHabit";
 import styled from "styled-components"
 import { Titulo } from "./layouts/Titulo";
-import HabitsContext from "../contexts/HabitsContext";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import 'dayjs/locale/pt-br';
@@ -22,7 +21,7 @@ export default function TodayPage() {
   //Deixa apenas a primeira letra maiúscula e remove o -feira da string
   const dataAtual = (date[0].toUpperCase() + date.slice(1)).replace("-feira",''); 
   
-  const { habitosHoje, porcentagem, habitsChecked, setHabitsChecked, atualizaHabitosHoje } = useContext(UserContext);
+  const { habitosHoje, porcentagem, atualizaHabitosHoje } = useContext(UserContext);
 
   useEffect(() => {
     atualizaHabitosHoje();
@@ -40,7 +39,6 @@ export default function TodayPage() {
   return (
     <ContainerPage className="ContainerPage">
       <Header />
-        <HabitsContext.Provider value={{habitsChecked, setHabitsChecked}}>
           <SectionTitulos>
             <Titulo justify={"left"}>
               <h2>{dataAtual}</h2>
@@ -57,7 +55,6 @@ export default function TodayPage() {
           </SectionTodaysHabits>
 
           <Menu />
-        </HabitsContext.Provider>
 
     </ContainerPage>
   );
