@@ -5,7 +5,6 @@ import styled from "styled-components"
 import UserContext from "../contexts/UserContext";
 
 export default function CardTodaysHabit(props) {
-  console.log("renderizou");
   const {habito, requestHabits} = props;
   const {id, name, done, currentSequence, highestSequence} = habito;
   const { userData, habitsChecked, setHabitsChecked } = useContext(UserContext);

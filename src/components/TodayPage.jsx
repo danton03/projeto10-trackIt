@@ -13,7 +13,6 @@ import advancedFormat from "dayjs/plugin/advancedFormat";
 import 'dayjs/locale/pt-br';
 
 export default function TodayPage() {
-  console.log("renderizou a página 'hoje'");
   //permite formatos diferentes do padrão da biblioteca
   dayjs.extend(advancedFormat);
   //Especifica a localidade para o Brasil
