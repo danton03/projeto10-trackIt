@@ -7,7 +7,6 @@ import UserContext from "../contexts/UserContext";
 
 export default function Menu() {
   const navigate = useNavigate();
-  console.log("renderizou o menu")
   const { porcentagem } = useContext(UserContext);
 
   return (
@@ -39,7 +38,13 @@ export default function Menu() {
         </BotaoPagina>
       </ProgressBar>
 
-      <BotaoPagina type="button" color="#52B6FF" >Histórico</BotaoPagina>
+      <BotaoPagina 
+      type="button" 
+      color="#52B6FF"
+      onClick={() => navigate("/historico")}
+      >
+        Histórico
+      </BotaoPagina>
     </ContainerMenu>
   );
 }

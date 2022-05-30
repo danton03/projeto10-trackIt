@@ -2,17 +2,14 @@ import styled from "styled-components";
 import { useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 
-
 export default function Header() {
   //Pegando o state dos dados do usuário do contexto
   const { userData } = useContext(UserContext);
-  //Desestruturando o state para pegar só link da imagem de perfil
-  const { img } = userData; 
 
   return(
     <Titulo>
         <h1>TrackIt</h1>
-        <img src={img} alt="Perfil" />
+        <img src={userData.img ? userData.img : ""} alt="Perfil" />
     </Titulo>
   );
 }

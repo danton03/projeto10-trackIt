@@ -37,8 +37,6 @@ export default function CardCreatHabit(props) {
       };
 
       //Requisição para a API de login
-      console.log("dataHabit que é enviado:");
-      console.log(dataHabit);
       const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", dataHabit, config);
       promise.then(successRequest); //sucesso
       promise.catch(failInRequest); //falha

@@ -1,8 +1,6 @@
-/* import '../../node_modules/dayjs/locale/br' // load on demand */
 import { ContainerPage } from "./layouts/HabitsPageStyles";
 import { useContext } from "react";
 import Menu from "./Menu";
-/* import axios from "axios"; */
 import UserContext from "../contexts/UserContext";
 import { useEffect } from "react";
 import Header from "./layouts/Header";
@@ -13,13 +11,16 @@ import { Titulo } from "./layouts/Titulo";
 import HabitsContext from "../contexts/HabitsContext";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
-import '../../node_modules/dayjs/locale/pt-br';
+import 'dayjs/locale/pt-br';
 
-export default function HojePage() {
+export default function TodayPage() {
+  //permite formatos diferentes do padrão da biblioteca
   dayjs.extend(advancedFormat);
+  //Especifica a localidade para o Brasil
   dayjs.locale("pt-br");
-  const date = dayjs().format('dddd, DD/MM');
-  const dataAtual = (date[0].toUpperCase() + date.slice(1)).replace("-feira",'');
+  const date = dayjs().format('dddd, DD/MM'); //pega no formato: segunda-feira, 17/05
+  //Deixa apenas a primeira letra maiúscula e remove o -feira da string
+  const dataAtual = (date[0].toUpperCase() + date.slice(1)).replace("-feira",''); 
   
   const { habitosHoje, porcentagem, habitsChecked, setHabitsChecked, atualizaHabitosHoje } = useContext(UserContext);
 
@@ -52,7 +53,7 @@ export default function HojePage() {
           </SectionTitulos>
 
           <SectionTodaysHabits>
-            {habitosHoje.length ? renderizaCards() : "Carregando..."}
+            {habitosHoje.length ? renderizaCards() : ""}
           </SectionTodaysHabits>
 
           <Menu />

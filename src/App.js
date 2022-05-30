@@ -8,8 +8,9 @@ import CreateAccount from './components/CreateAccount';
 import HabitsPage from './components/HabitsPage';
 import UserContext from "./contexts/UserContext";
 import { useEffect, useState } from 'react';
-import HojePage from './components/HojePage';
+import TodayPage from './components/TodayPage';
 import axios from 'axios';
+import HistoryPage from './components/HistoryPage';
 
 
 function App() {
@@ -33,10 +34,7 @@ function App() {
     promise.catch(failInRequest); //falha
 
     function successRequest(response) {
-      console.log(response.data)
       setHabitosHoje(response.data)
-      console.log("Estado habitosHoje");
-      console.log(habitosHoje);
     }
 
     function failInRequest() {
@@ -71,8 +69,9 @@ function App() {
             <Routes>
               <Route path='/' element={<LoginPage />} />
               <Route path='/cadastro' element={<CreateAccount />} />
-              <Route path='/hoje' element={<HojePage />} />
+              <Route path='/hoje' element={<TodayPage />} />
               <Route path='/habitos' element={<HabitsPage />} />
+              <Route path='/historico' element={<HistoryPage />} />
             </Routes>
           </BrowserRouter>
       </UserContext.Provider>

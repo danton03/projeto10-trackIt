@@ -8,11 +8,10 @@ import { SectionShowHabits } from "./layouts/SectionShowHabits";
 import CardHabit from "./CardHabit";
 import RefreshHabitsContext from "../contexts/RefreshHabitsContext";
 import Menu from "./Menu";
+import { Texto } from "./layouts/Texto";
 
-export default function HabitsPage(props) {
-  console.log("renderizou a pagina");
-  /* const {atualizaHabitosHoje} = props; */
-  const { userData, updateToday, setUpdateToday } = useContext(UserContext);
+export default function HabitsPage() {
+  const { userData } = useContext(UserContext);
   const { token } = userData;
   const [habitos, setHabitos] = useState(null);
   const [novoHabito, setNovoHabito] = useState(false);
@@ -32,7 +31,6 @@ export default function HabitsPage(props) {
 
     function successRequest(response) {
       setHabitos(response.data);
-      setUpdateToday(!updateToday);
     }
 
     function failInRequest() {
@@ -43,7 +41,7 @@ export default function HabitsPage(props) {
 
   function renderizaHabitos() {
     if(!habitos.length){
-      return <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+      return <Texto>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Texto>
     }
 
     else{
